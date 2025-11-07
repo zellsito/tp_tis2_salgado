@@ -200,6 +200,8 @@ Para cada notebook crear archivo `<nombre>.md` con:
 
 ### raglangchain.ipynb (ADAPTADO ✅)
 1. **Celda 0359a684 (imports):**
+   - ❌ `from langchain.document_loaders import PyPDFLoader` (deprecado)
+   - ✅ `from langchain_community.document_loaders import PyPDFLoader`
    - ❌ `from langchain_openai import OpenAIEmbeddings`
    - ❌ `from langchain_openai import ChatOpenAI`
    - ✅ `from langchain_huggingface import HuggingFaceEmbeddings`
@@ -218,7 +220,42 @@ Para cada notebook crear archivo `<nombre>.md` con:
    - ✅ `Chroma.from_documents(cleaned_texts, embeddings)`
 6. **Datos preparados:**
    - ✅ PDF copiado a `notebooks/data/Understanding_Climate_Change.pdf`
-   - ✅ Dataset de películas en `../semantic-search/dataset.json` (ya existe)
+   - ✅ Dataset de películas: usar path relativo `dataset.json` (mismo directorio)
+
+### raglangchain.ipynb - Errores Corregidos
+
+**Error 1: Import deprecado de PyPDFLoader**
+```python
+# ❌ Error:
+ModuleNotFoundError: No module named 'langchain.document_loaders'
+
+# Causa:
+from langchain.document_loaders import PyPDFLoader  # Deprecado en LangChain 1.x
+
+# ✅ Solución:
+from langchain_community.document_loaders import PyPDFLoader
+```
+
+**Error 2: OpenAI API key no configurada**
+```python
+# ❌ Error al usar OpenAIEmbeddings() o ChatOpenAI()
+AuthenticationError: No API key provided
+
+# ✅ Solución: Usar alternativas gratuitas
+from langchain_huggingface import HuggingFaceEmbeddings  # Embeddings locales
+from langchain_groq import ChatGroq  # LLM gratuito
+```
+
+**Error 3: Path incorrecto del dataset**
+```python
+# ❌ Path original (asume estructura diferente)
+input_datapath = "../semantic-search/dataset.json"
+
+# ✅ Usar path relativo al notebook
+input_datapath = "dataset.json"  # Mismo directorio que el notebook
+```
+
+---
 
 ### semanticsearchnotebook.ipynb (ADAPTADO ✅)
 1. **Celda 482c51f4:** Comentada instalación de OpenAI, todo ya instalado en .venv
