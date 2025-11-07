@@ -198,6 +198,28 @@ Para cada notebook crear archivo `<nombre>.md` con:
    - ❌ `OpenAIEmbeddings()`
    - ✅ `HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")`
 
+### raglangchain.ipynb (ADAPTADO ✅)
+1. **Celda 0359a684 (imports):**
+   - ❌ `from langchain_openai import OpenAIEmbeddings`
+   - ❌ `from langchain_openai import ChatOpenAI`
+   - ✅ `from langchain_huggingface import HuggingFaceEmbeddings`
+   - ✅ `from langchain_groq import ChatGroq`
+2. **Celda 8o9x9mda5pj (nueva, configuración embeddings):**
+   - ✅ `EMBEDDING_MODEL = "all-MiniLM-L6-v2"`
+   - ✅ `embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)`
+3. **Celda 69dd1aea (InMemoryVectorStore):**
+   - ❌ `InMemoryVectorStore(OpenAIEmbeddings())`
+   - ✅ `InMemoryVectorStore(embeddings)`
+4. **Celda 964b9696 (LLM):**
+   - ❌ `ChatOpenAI(model=llm_model, temperature=0.1)`
+   - ✅ `ChatGroq(model=llm_model, temperature=0.1)`
+5. **Celda 1779f900 (Chroma):**
+   - ❌ `Chroma.from_documents(cleaned_texts, OpenAIEmbeddings())`
+   - ✅ `Chroma.from_documents(cleaned_texts, embeddings)`
+6. **Datos preparados:**
+   - ✅ PDF copiado a `notebooks/data/Understanding_Climate_Change.pdf`
+   - ✅ Dataset de películas en `../semantic-search/dataset.json` (ya existe)
+
 ### semanticsearchnotebook.ipynb (ADAPTADO ✅)
 1. **Celda 482c51f4:** Comentada instalación de OpenAI, todo ya instalado en .venv
 2. **Celda 3a43fb47 (imports):**
@@ -280,13 +302,17 @@ Para cada notebook crear archivo `<nombre>.md` con:
 - ✅ Setup completo
 - ✅ `chatmodel.ipynb` completado y documentado
 - ✅ `semanticsearchnotebook.ipynb` completado y documentado
-- 📌 **Siguiente:** raglangchain.ipynb (RAG = búsqueda semántica + LLM)
+- 🔄 **En progreso:** raglangchain.ipynb (RAG = búsqueda semántica + LLM)
+  - ✅ Dependencias instaladas (pypdf, langsmith)
+  - ✅ Notebook adaptado (OpenAI → Groq + HuggingFace)
+  - ✅ PDF preparado en notebooks/data/
+  - ⏳ Listo para ejecutar
 - 🎯 **Objetivo:** Aprender 8 notebooks principales
-- 📝 **Progreso:** 2/8 completado (25%)
+- 📝 **Progreso:** 2/8 completado (25%), 3er notebook en progreso
 
 ---
 
 **Última actualización:** 2025-11-06
-**Sesión actual:** semanticsearchnotebook.ipynb completado exitosamente
-**Próxima sesión:** Ejecutar raglangchain.ipynb (combina lo aprendido)
-**Nota:** Búsqueda semántica funcional con ChromaDB + embeddings locales
+**Sesión actual:** raglangchain.ipynb adaptado, listo para ejecutar
+**Próxima sesión:** Ejecutar raglangchain.ipynb celda por celda
+**Nota:** RAG combina búsqueda semántica + LLM para responder con contexto

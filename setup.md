@@ -83,12 +83,21 @@ python3 -m venv .venv
 **Qué instala:**
 - `pandas`: Análisis y manipulación de datos (DataFrames)
 
+### Procesamiento de PDFs (para RAG)
+```bash
+.venv/bin/pip install pypdf
+```
+**Qué instala:**
+- `pypdf`: Lector de archivos PDF para ingesta de documentos
+- **Usado en:** raglangchain.ipynb (cargar PDFs como contexto)
+
 ### Utilidades
 ```bash
-.venv/bin/pip install python-dotenv
+.venv/bin/pip install python-dotenv langsmith
 ```
 **Qué instala:**
 - `python-dotenv`: Carga variables desde archivo `.env`
+- `langsmith`: Cliente de LangSmith (observabilidad, opcional)
 
 ---
 
