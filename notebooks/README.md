@@ -12,8 +12,12 @@ notebooks/
 ├── chatmodel.md                     # ✅ Documentación completa
 ├── semanticsearchnotebook.ipynb     # ✅ Notebook búsqueda semántica (COMPLETADO)
 ├── semanticsearchnotebook.md        # ✅ Documentación completa
+├── raglangchain.ipynb               # ✅ Notebook RAG + re-ranking (COMPLETADO)
+├── raglangchain.md                  # ✅ Documentación completa
 ├── dataset.json                     # Dataset limpio (8.6KB, sin embeddings)
 ├── dataset_original_with_openai_embeddings.json  # Backup (210KB)
+├── data/
+│   └── Understanding_Climate_Change.pdf  # PDF para RAG (206KB)
 ├── chroma_db/                       # Base de datos vectorial ChromaDB
 └── README.md                        # Este archivo
 ```
@@ -110,6 +114,23 @@ Revisar `chatmodel.md` para entender:
 
 ---
 
+### 3. raglangchain.ipynb ✅
+**Temas:** RAG (Retrieval Augmented Generation), re-ranking, visualización
+
+| # | Descripción | Concepto |
+|---|-------------|----------|
+| Imports | Setup completo | LangChain 1.0+, Groq, HuggingFace |
+| Movies | Búsqueda semántica básica | InMemoryVectorStore + metadata |
+| RAG Chain | LLM + Retriever | {"context": retriever, "question": input} |
+| PDF Loading | Cargar y procesar PDF | PyPDFLoader + chunking (97 chunks) |
+| ChromaDB | Vector store persistente | Embeddings locales |
+| Re-ranking | CrossEncoder manual | ms-marco-MiniLM-L-6-v2 |
+| RAGxplorer | Visualización 2D | UMAP + plotly |
+
+**Documentación:** `raglangchain.md`
+
+---
+
 ## 🎓 Aprendizajes Clave
 
 ### Sobre Jupyter Notebooks
@@ -174,12 +195,13 @@ Reiniciar VS Code y reseleccionar kernel
 ### Notebooks Completados
 - [x] **chatmodel.ipynb** - Prompting y LangChain básico
 - [x] **semanticsearchnotebook.ipynb** - Búsqueda semántica con ChromaDB
+- [x] **raglangchain.ipynb** - RAG + Re-ranking + Visualización
 
 ### Próximo Notebook Recomendado
-- [ ] **raglangchain.ipynb** - RAG (Retrieval-Augmented Generation)
-  - Combina búsqueda semántica + LLM
-  - Tamaño: 254KB (complejidad media)
-  - Prerequisitos: chatmodel + semanticsearch ✅
+- [ ] **react-web-search.ipynb** - ReAct Agents + Web Search
+  - Agentes que razonan y actúan
+  - Tamaño: 78KB (complejidad media)
+  - Prerequisitos: chatmodel + raglangchain ✅
 
 ---
 
@@ -189,12 +211,12 @@ Reiniciar VS Code y reseleccionar kernel
 |---|----------|--------|-------------|
 | 1 | chatmodel.ipynb | ✅ COMPLETADO | Baja |
 | 2 | semanticsearchnotebook.ipynb | ✅ COMPLETADO | Baja-Media |
-| 3 | raglangchain.ipynb | 📌 SIGUIENTE | Media |
-| 4 | react-web-search.ipynb | ⏳ Pendiente | Media |
+| 3 | raglangchain.ipynb | ✅ COMPLETADO | Media |
+| 4 | react-web-search.ipynb | 📌 SIGUIENTE | Media |
 | 5 | agentic-rag.ipynb | ⏳ Pendiente | Alta |
 | 6 | sql-agent.ipynb | ⏳ Pendiente | Alta |
 
-**Progreso:** 2/6 notebooks completados (33%)
+**Progreso:** 3/6 notebooks completados (50%)
 
 ---
 

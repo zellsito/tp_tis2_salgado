@@ -91,6 +91,14 @@ python3 -m venv .venv
 - `pypdf`: Lector de archivos PDF para ingesta de documentos
 - **Usado en:** raglangchain.ipynb (cargar PDFs como contexto)
 
+### LangSmith (para prompts públicos y observabilidad)
+**Nota:** `langsmith` ya se instaló en la sección de Utilidades.
+
+**Uso adicional en RAG:**
+- Descargar prompts públicos del hub con `client.pull_prompt()`
+- Ejemplo: `hub_client.pull_prompt("rlm/rag-prompt")`
+- **Usado en:** raglangchain.ipynb
+
 ### Utilidades
 ```bash
 .venv/bin/pip install python-dotenv langsmith

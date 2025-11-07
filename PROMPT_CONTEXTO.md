@@ -199,61 +199,155 @@ Para cada notebook crear archivo `<nombre>.md` con:
    - ✅ `HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")`
 
 ### raglangchain.ipynb (ADAPTADO ✅)
-1. **Celda 0359a684 (imports):**
-   - ❌ `from langchain.document_loaders import PyPDFLoader` (deprecado)
+1. **Celda 0359a684 (imports - TODOS actualizados para LangChain 1.0+):**
+   - ❌ `from langchain.document_loaders import PyPDFLoader`
    - ✅ `from langchain_community.document_loaders import PyPDFLoader`
-   - ❌ `from langchain_openai import OpenAIEmbeddings`
-   - ❌ `from langchain_openai import ChatOpenAI`
+   - ❌ `from langchain.text_splitter import RecursiveCharacterTextSplitter`
+   - ✅ `from langchain_text_splitters import RecursiveCharacterTextSplitter`
+   - ❌ `from langchain.schema import Document`
+   - ✅ `from langchain_core.documents import Document`
+   - ❌ `from langchain.vectorstores.chroma import Chroma`
+   - ✅ `from langchain_chroma import Chroma`
+   - ❌ `from langchain.schema.runnable import RunnablePassthrough`
+   - ✅ `from langchain_core.runnables import RunnablePassthrough`
+   - ❌ `from langchain.schema.output_parser import StrOutputParser`
+   - ✅ `from langchain_core.output_parsers import StrOutputParser`
+   - ❌ `from langchain import hub`
+   - ✅ `from langsmith import Client as LangSmithClient` + `hub_client = LangSmithClient()`
+   - ❌ `from langchain_openai import OpenAIEmbeddings, ChatOpenAI`
    - ✅ `from langchain_huggingface import HuggingFaceEmbeddings`
    - ✅ `from langchain_groq import ChatGroq`
 2. **Celda 8o9x9mda5pj (nueva, configuración embeddings):**
    - ✅ `EMBEDDING_MODEL = "all-MiniLM-L6-v2"`
    - ✅ `embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)`
-3. **Celda 69dd1aea (InMemoryVectorStore):**
+3. **Celda 90cab636 (dataset path):**
+   - ❌ `input_datapath = "../semantic-search/dataset.json"`
+   - ✅ `input_datapath = "dataset.json"`
+4. **Celda 69dd1aea (InMemoryVectorStore):**
    - ❌ `InMemoryVectorStore(OpenAIEmbeddings())`
    - ✅ `InMemoryVectorStore(embeddings)`
-4. **Celda 964b9696 (LLM):**
+5. **Celda 964b9696 (LLM):**
    - ❌ `ChatOpenAI(model=llm_model, temperature=0.1)`
    - ✅ `ChatGroq(model=llm_model, temperature=0.1)`
-5. **Celda 1779f900 (Chroma):**
+6. **Celda 9f41466a (hub.pull):**
+   - ❌ `rag_prompt = hub.pull("rlm/rag-prompt")`
+   - ✅ `rag_prompt = hub_client.pull_prompt("rlm/rag-prompt")`
+7. **Celda 1779f900 (Chroma):**
    - ❌ `Chroma.from_documents(cleaned_texts, OpenAIEmbeddings())`
    - ✅ `Chroma.from_documents(cleaned_texts, embeddings)`
-6. **Datos preparados:**
+8. **Celdas 3652ba2b, 7250b7ca, 1316d1f7 (Re-ranking - COMPLETADO ✅):**
+   - ✅ Implementado re-ranking manual con `CrossEncoder`
+   - ✅ Función `rerank_documents()` creada
+   - ✅ Clase `RerankedRetriever` para integrar re-ranking en chains
+   - ✅ RAG chain con re-ranking funcionando correctamente
+9. **Datos preparados:**
    - ✅ PDF copiado a `notebooks/data/Understanding_Climate_Change.pdf`
-   - ✅ Dataset de películas: usar path relativo `dataset.json` (mismo directorio)
+   - ✅ Dataset de películas en mismo directorio
 
-### raglangchain.ipynb - Errores Corregidos
+### raglangchain.ipynb - Errores Corregidos (COMPLETO ✅)
 
-**Error 1: Import deprecado de PyPDFLoader**
+**Error 1: Múltiples imports deprecados (LangChain 1.0+)**
 ```python
-# ❌ Error:
-ModuleNotFoundError: No module named 'langchain.document_loaders'
+# ❌ Errores: No module named 'langchain.schema', 'langchain.retrievers', etc.
 
-# Causa:
-from langchain.document_loaders import PyPDFLoader  # Deprecado en LangChain 1.x
+# Causa: LangChain 1.0+ reorganizó todos los módulos en paquetes separados
 
-# ✅ Solución:
+# ✅ Solución: Usar imports específicos de cada paquete
 from langchain_community.document_loaders import PyPDFLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_core.documents import Document
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
+from langchain_chroma import Chroma
 ```
 
-**Error 2: OpenAI API key no configurada**
+**Error 2: hub.pull() no disponible**
 ```python
-# ❌ Error al usar OpenAIEmbeddings() o ChatOpenAI()
-AuthenticationError: No API key provided
+# ❌ Error: cannot import name 'hub' from 'langchain'
+# ❌ langchainhub está deprecado
 
+# ✅ Solución: Usar langsmith Client (langsmith ya instalado)
+from langsmith import Client as LangSmithClient
+hub_client = LangSmithClient()
+rag_prompt = hub_client.pull_prompt("rlm/rag-prompt")
+```
+
+**Error 3: ContextualCompressionRetriever no disponible (SOLUCIONADO ✅)**
+```python
+# ❌ Error: No module named 'langchain.retrievers'
+# ❌ ContextualCompressionRetriever removido en LangChain 1.0+
+
+# ✅ Solución: Implementar re-ranking manual con CrossEncoder
+from sentence_transformers import CrossEncoder
+
+cross_encoder_model = CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
+
+def rerank_documents(query: str, documents: list, top_n: int = 3):
+    """Re-rankea documentos usando cross-encoder"""
+    pairs = [[query, doc.page_content] for doc in documents]
+    scores = cross_encoder_model.predict(pairs)
+    scored_docs = list(zip(documents, scores))
+    scored_docs.sort(key=lambda x: x[1], reverse=True)
+    return [doc for doc, score in scored_docs[:top_n]]
+
+# Retriever personalizado con re-ranking integrado
+class RerankedRetriever:
+    def __init__(self, base_retriever, rerank_function, top_n=3):
+        self.base_retriever = base_retriever
+        self.rerank_function = rerank_function
+        self.top_n = top_n
+
+    def invoke(self, query: str):
+        docs = self.base_retriever.invoke(query)
+        return self.rerank_function(query, docs, self.top_n)
+```
+
+**Error 4: OpenAI API key no configurada**
+```python
 # ✅ Solución: Usar alternativas gratuitas
-from langchain_huggingface import HuggingFaceEmbeddings  # Embeddings locales
-from langchain_groq import ChatGroq  # LLM gratuito
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_groq import ChatGroq
 ```
 
-**Error 3: Path incorrecto del dataset**
+**Error 5: Path incorrecto del dataset**
 ```python
-# ❌ Path original (asume estructura diferente)
-input_datapath = "../semantic-search/dataset.json"
-
-# ✅ Usar path relativo al notebook
-input_datapath = "dataset.json"  # Mismo directorio que el notebook
+# ❌ input_datapath = "../semantic-search/dataset.json"
+# ✅ input_datapath = "dataset.json"
 ```
+
+**Error 6: RAGxplorer no instalado y con imports deprecados**
+```python
+# ❌ Error: No module named 'ragexplorer'
+# Causa: No está disponible en PyPI normalmente
+
+# ✅ Solución: Instalar desde GitHub
+pip install git+https://github.com/gabrielchua/RAGxplorer.git
+
+# ✅ Parche imports deprecados en ragxplorer/rag.py:
+from langchain_text_splitters import RecursiveCharacterTextSplitter, SentenceTransformersTokenTextSplitter
+
+# ✅ Parche bug en ragxplorer/projections.py (línea 47):
+if isinstance(embedding, list):
+    embedding = np.array(embedding)
+```
+
+**Error 7: HyDE retrieval method con bug en RAGxplorer**
+```python
+# ❌ retrieval_method="HyDE" causa AttributeError con embeddings locales
+# ✅ Usar retrieval_method="naive" (método básico funciona correctamente)
+```
+
+**Celda 64463bd5 (instalación):**
+- ✅ `ragexplorer` instalado desde GitHub
+- ✅ `nbformat` ya instalado
+
+**Celda 367b91c6 (inicialización):**
+- ❌ `RAGxplorer(embedding_model="text-embedding-3-small")` (OpenAI)
+- ✅ `RAGxplorer(embedding_model="all-MiniLM-L6-v2")` (local, gratis)
+
+**Celda 4d895962 (visualización):**
+- ❌ `retrieval_method="HyDE"` (bug con embeddings locales)
+- ✅ `retrieval_method="naive"` (método básico, funciona bien)
 
 ---
 
@@ -339,17 +433,20 @@ input_datapath = "dataset.json"  # Mismo directorio que el notebook
 - ✅ Setup completo
 - ✅ `chatmodel.ipynb` completado y documentado
 - ✅ `semanticsearchnotebook.ipynb` completado y documentado
-- 🔄 **En progreso:** raglangchain.ipynb (RAG = búsqueda semántica + LLM)
-  - ✅ Dependencias instaladas (pypdf, langsmith)
+- ✅ **COMPLETADO:** raglangchain.ipynb (RAG = búsqueda semántica + LLM)
+  - ✅ Dependencias instaladas (pypdf, langsmith, ragexplorer)
   - ✅ Notebook adaptado (OpenAI → Groq + HuggingFace)
   - ✅ PDF preparado en notebooks/data/
-  - ⏳ Listo para ejecutar
+  - ✅ RAGxplorer configurado con embeddings locales
+  - ✅ Todos los imports actualizados para LangChain 1.0+
+  - ✅ Re-ranking implementado con CrossEncoder (ms-marco-MiniLM-L-6-v2)
+  - ✅ Visualización RAGxplorer funcionando
 - 🎯 **Objetivo:** Aprender 8 notebooks principales
-- 📝 **Progreso:** 2/8 completado (25%), 3er notebook en progreso
+- 📝 **Progreso:** 3/8 completado (37.5%)
 
 ---
 
-**Última actualización:** 2025-11-06
-**Sesión actual:** raglangchain.ipynb adaptado, listo para ejecutar
-**Próxima sesión:** Ejecutar raglangchain.ipynb celda por celda
-**Nota:** RAG combina búsqueda semántica + LLM para responder con contexto
+**Última actualización:** 2025-11-07
+**Sesión actual:** raglangchain.ipynb COMPLETADO - Todo funcionando con embeddings locales
+**Próxima sesión:** Ejecutar y documentar raglangchain.ipynb celda por celda O continuar con react-web-search.ipynb
+**Nota importante:** RAG combina búsqueda semántica + LLM para responder con contexto. RAGxplorer visualiza los chunks y queries en un espacio 2D.
