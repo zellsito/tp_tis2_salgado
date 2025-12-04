@@ -198,7 +198,7 @@ def log(msg):
 Exportamos la URL de conexión para que funcione el código anterior:
 
 ```
-export MONGODB_URL="mongodb+srv://user:password@cluster.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+export MONGODB_URL="mongodb+srv://user:password@cluster.mongodb.net/?appName=Cluster0"
 ```
 
 Posteriormente, registramos los parámetros y la salida del llamado al servicio en la base de datos Mongo.

@@ -18,7 +18,7 @@ mongo_client = MongoClient(uri)
 **Después (Atlas):**
 ```python
 # MongoDB Atlas con Vector Search
-uri = os.getenv("MONGO_URI", "mongodb+srv://user:...")
+uri = os.getenv("MONGO_URI", "mongodb+srv://user:password@cluster.mongodb.net/?appName=Cluster0")
 mongo_client = MongoClient(uri, server_api=ServerApi('1'))
 ```
 

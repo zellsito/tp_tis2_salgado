@@ -202,7 +202,7 @@ from flask import current_app, g
 def get_db():
     if 'db' not in g:
         print("registramos una conexión")
-        dbClient = pymongo.MongoClient("mongodb+srv://<user>:<pass>@cluster0.g2znx.gcp.mongodb.net/?retryWrites=true&w=majority") # Ajustar la linea de acuerdo al servidor utiizado
+        dbClient = pymongo.MongoClient("mongodb+srv://user:password@cluster.mongodb.net/?appName=Cluster0") # Ajustar la linea de acuerdo al servidor utiizado
         dbName="mydatabase"
         db = dbClient[dbName]
         g.db=db
