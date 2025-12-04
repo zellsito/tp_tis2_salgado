@@ -1,0 +1,37 @@
+services:    
+  balancer:    
+    image: "nginx"
+    volumes:      
+    - ./nginx/:/etc/nginx:ro
+    links:        
+    - node1:node1        
+#     - node2:node2
+      
+    ports:        
+    - "80:80"        
+    - "443:443"
+  node1: 
+    image: "servidor:latest" 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose: 
+    - "5555" 
+    ports: 
+    - "81:5555" 
+    cpu_quota: 50000
+  node2: 
+    image: "servidor:latest" 
+    expose: 
+    - "5555" 
+    ports: 
+    - "82:5555" 
+    cpu_quota: 5000
+
+  node3: 
+    image: "servidor:latest" 
+    expose: 
+    - "5555" 
+    ports: 
+    - "83:5555" 
+    cpu_quota: 5000

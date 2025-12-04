@@ -2,3 +2,9 @@ pase todo a groq y hugging face ((incluso rag explorer))
 serian varios servicios, cada uno en un docker compose? como se buildean multiples servicios 
 le recalcule el vector al dataset
 repo borrado
+
+
+venv requirements poetry o uv toml    pip freeze
+embeddings,
+
+cachier

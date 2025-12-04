@@ -71,23 +71,31 @@ tp_tis2_salgado/
 
 ---
 
-## 🔄 Orden de Aprendizaje Recomendado (por complejidad)
+## 📊 Inventario Completo de Notebooks (11 total)
 
-| Orden | Notebook | Tamaño | Complejidad | Temas |
-|-------|----------|--------|-------------|-------|
-| 1 | ✅ `chatmodel.ipynb` | 13KB | Baja | Prompting, chains, memoria |
-| 2 | 📌 `semanticsearchnotebook.ipynb` | 36KB | Baja-Media | Embeddings, búsqueda semántica |
-| 3 | `react-web-search.ipynb` | 78KB | Media | ReAct agents, web search |
-| 4 | `raglangchain.ipynb` | 254KB | Media | RAG básico |
-| 5 | `raglangchaimongodb.ipynb` | 258KB | Media-Alta | RAG + MongoDB |
-| 6 | `agentic-rag.ipynb` | 385KB | Alta | RAG con agentes |
-| 7 | `sql-agent.ipynb` | 1.1MB | Alta | Agentes SQL |
-| 8 | `langchainmultiagentcollaboration.ipynb` | 1.1MB | Muy Alta | Multi-agentes |
+### 🎯 Notebooks de LLM/LangChain (Prioridad Alta - 8 notebooks)
 
-**Notebooks de ML/Data Science (opcionales, menor prioridad):**
-- `salarypredictionregression.ipynb` (141KB)
-- `customerchurnclassification-fs.ipynb` (517KB)
-- `pneumoniapreprocessing.ipynb` (46KB)
+| # | Notebook | Tamaño | Estado | Complejidad | Temas |
+|---|----------|--------|--------|-------------|-------|
+| 1 | chatmodel.ipynb | 13KB | ✅ COMPLETADO | Baja | Prompting, chains, memoria |
+| 2 | semanticsearchnotebook.ipynb | 32KB | ✅ COMPLETADO | Baja-Media | Embeddings, búsqueda semántica |
+| 3 | raglangchain.ipynb | 33KB | ✅ COMPLETADO | Media | RAG + re-ranking |
+| 4 | react-web-search.ipynb | 49KB | ✅ COMPLETADO | Media | ReAct agents + Tavily |
+| 5 | agentic-rag.ipynb | 393KB | ✅ COMPLETADO | Alta | RAG con flujo decisiones |
+| 6 | raglangchaimongodb.ipynb | 263KB | 📌 SIGUIENTE | Media-Alta | RAG + MongoDB |
+| 7 | sql-agent.ipynb | 1.1MB | ⏳ PENDIENTE | Alta | Agentes + SQL + LangGraph |
+| 8 | langchainmultiagentcollaboration.ipynb | 1.1MB | ⏳ PENDIENTE | Muy Alta | Multi-agentes colaborativos |
+
+### 📊 Notebooks de ML/Data Science (Prioridad Baja - 3 notebooks)
+
+| # | Notebook | Tamaño | Estado | Tema |
+|---|----------|--------|--------|------|
+| 9 | pneumoniapreprocessing.ipynb | 47KB | ⏸️ OPCIONAL | Preprocesamiento imágenes |
+| 10 | salarypredictionregression.ipynb | 144KB | ⏸️ OPCIONAL | Regresión ML |
+| 11 | customerchurnclassification-fs.ipynb | 529KB | ⏸️ OPCIONAL | Clasificación ML |
+
+**Progreso LLM/LangChain:** 5/8 completados (62.5%)
+**Progreso Total:** 5/11 notebooks (45.5%)
 
 ---
 
@@ -433,7 +441,7 @@ if isinstance(embedding, list):
 - ✅ Setup completo
 - ✅ `chatmodel.ipynb` completado y documentado
 - ✅ `semanticsearchnotebook.ipynb` completado y documentado
-- ✅ **COMPLETADO:** raglangchain.ipynb (RAG = búsqueda semántica + LLM)
+- ✅ `raglangchain.ipynb` completado y documentado
   - ✅ Dependencias instaladas (pypdf, langsmith, ragexplorer)
   - ✅ Notebook adaptado (OpenAI → Groq + HuggingFace)
   - ✅ PDF preparado en notebooks/data/
@@ -441,12 +449,54 @@ if isinstance(embedding, list):
   - ✅ Todos los imports actualizados para LangChain 1.0+
   - ✅ Re-ranking implementado con CrossEncoder (ms-marco-MiniLM-L-6-v2)
   - ✅ Visualización RAGxplorer funcionando
-- 🎯 **Objetivo:** Aprender 8 notebooks principales
-- 📝 **Progreso:** 3/8 completado (37.5%)
+- ✅ `react-web-search.ipynb` adaptado y documentado
+  - ✅ Tavily API key configurada
+  - ✅ Dependencias instaladas (langgraph, langchain-tavily)
+  - ✅ LLM adaptado (OpenAI → Groq)
+  - ✅ Tests exitosos
+- ✅ `agentic-rag.ipynb` completado y documentado
+  - ✅ Todos los imports actualizados a LangChain 1.0+
+  - ✅ LLM adaptado (OpenAI → Groq)
+  - ✅ Embeddings adaptados (OpenAI → HuggingFace local)
+  - ✅ LangGraph workflow con nodos de decisión inteligentes
+  - ✅ PDF de ejemplo disponible (Understanding_Climate_Change.pdf)
+  - ✅ Flujo completo: query generation → retrieval → grading → rewriting → answer
+- 🎯 **Objetivo:** Aprender 8 notebooks de LLM/LangChain (+ 3 opcionales de ML)
+- 📝 **Progreso LLM:** 5/8 completado (62.5%)
+- 📝 **Progreso Total:** 5/11 notebooks (45.5%)
+
+---
+
+## 🎯 Próximos Pasos Recomendados
+
+### Opción A: raglangchaimongodb.ipynb ⭐ RECOMENDADA
+**Por qué seguir con este:**
+- ✅ Continuidad lógica después de RAG básico + agentic-rag
+- ✅ Introduce persistencia con MongoDB (crucial para apps reales)
+- ✅ Tamaño mediano (263KB) - abordable después de agentic-rag (393KB)
+- ✅ Complejidad Media-Alta (desafiante pero no abrumador)
+- ✅ Combina RAG + Base de datos vectorial + Filtros tradicionales
+
+**Temas que aprenderás:**
+- MongoDB Atlas como vector store
+- Persistencia de embeddings en BD NoSQL
+- Queries híbridas (vectorial + metadatos)
+- Integración LangChain + PyMongo
+
+### Opción B: sql-agent.ipynb
+**Consideraciones:**
+- ⚠️ 1.1MB (muy extenso, >3x más grande que mongodb)
+- ⚠️ Complejidad Alta
+- ✅ Prerequisitos cumplidos (react-web-search + agentic-rag)
+- Recomendación: Dejar para después de mongodb
+
+### Opción C: Notebooks ML/Data Science
+- Solo si querés cambiar de tema temporalmente
+- Menor prioridad para LangChain/LLM
 
 ---
 
 **Última actualización:** 2025-11-07
-**Sesión actual:** raglangchain.ipynb COMPLETADO - Todo funcionando con embeddings locales
-**Próxima sesión:** Ejecutar y documentar raglangchain.ipynb celda por celda O continuar con react-web-search.ipynb
-**Nota importante:** RAG combina búsqueda semántica + LLM para responder con contexto. RAGxplorer visualiza los chunks y queries en un espacio 2D.
+**Sesión actual:** agentic-rag.ipynb COMPLETADO ✅
+**Siguiente recomendado:** raglangchaimongodb.ipynb (RAG + MongoDB, 263KB)
+**Notebooks pendientes LLM:** 3 (mongodb, sql-agent, multiagent)

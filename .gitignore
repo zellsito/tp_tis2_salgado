@@ -30,3 +30,6 @@ Thumbs.db
 # Archivos temporales
 *.log
 *.tmp
+
+#Dataset
+notebooks/pneumonia-notes-mimic3.parquet

@@ -76,6 +76,16 @@ python3 -m venv .venv
 - `langchain-huggingface`: Integración LangChain + HuggingFace
 - **Incluye:** PyTorch, transformers, scikit-learn, scipy (~3GB total)
 
+### Agents y Web Search (para react-web-search.ipynb)
+```bash
+.venv/bin/pip install langgraph langchain-tavily
+```
+**Qué instala:**
+- `langgraph`: Framework para crear grafos de agentes (ReAct)
+- `langchain-tavily`: Integración con Tavily Search API
+
+**API Key necesaria:** Tavily (gratis) - https://app.tavily.com/home
+
 ### Análisis de Datos
 ```bash
 .venv/bin/pip install pandas
@@ -162,6 +172,10 @@ GROQ_API_KEY=gsk_tu_key_aqui
 
 # Modelo a usar (actualizado a llama-3.1-8b-instant)
 OPENAI_MODEL=llama-3.1-8b-instant
+
+# Tavily API Key (para react-web-search.ipynb)
+# Obtener en: https://app.tavily.com/home
+TAVILY_API_KEY=tvly_tu_key_aqui
 ```
 
 **Nota:** El `.gitignore` ya está configurado para NO subir este archivo a Git.
@@ -305,9 +319,89 @@ Lista de chequeo antes de ejecutar el notebook:
 
 ---
 
+---
+
+## 11. Setup MongoDB con Docker Compose (Para `raglangchaimongodb.ipynb`)
+
+### Requisitos Previos
+- Docker y Docker Compose instalados
+
+### Iniciar MongoDB Local
+
+```bash
+# En la raíz del proyecto
+docker-compose up -d
+
+# Verificar que esté corriendo
+docker ps
+# Deberías ver: mongodb_local con puerto 27017:27017
+
+# Ver logs (opcional)
+docker-compose logs -f mongodb
+```
+
+### Configuración en `.env`
+
+El archivo `.env` ya contiene las credenciales:
+```bash
+MONGO_USERNAME=admin
+MONGO_PASSWORD=admin123
+MONGO_HOST=localhost
+MONGO_PORT=27017
+MONGO_DATABASE=langchain_test_db
+```
+
+### Comandos Útiles
+
+```bash
+# Detener MongoDB
+docker-compose down
+
+# Detener y eliminar datos (reiniciar desde cero)
+docker-compose down -v
+
+# Conectarse al shell de MongoDB (opcional)
+docker exec -it mongodb_local mongosh -u admin -p admin123 --authenticationDatabase admin
+
+# Dentro de mongosh:
+show dbs                              # Ver bases de datos
+use langchain_test_db                 # Seleccionar BD
+show collections                      # Ver colecciones
+db.langchain_test_vectorstores.find() # Ver documentos
+```
+
+### ⚠️ Limitación Importante
+
+**MongoDB local NO tiene Atlas Vector Search:**
+- ✅ Guarda embeddings en MongoDB
+- ✅ Funciona para el notebook (búsqueda por fuerza bruta)
+- ❌ Sin índices vectoriales HNSW optimizados
+- ❌ Más lento con muchos documentos
+
+Para producción con búsquedas vectoriales optimizadas:
+- **MongoDB Atlas** (tier gratuito: 512MB)
+- **ChromaDB** (ya usado en `raglangchain.ipynb`)
+- **Qdrant / Pinecone / Weaviate**
+
+### Verificación
+
+```bash
+# Probar conexión con Python
+.venv/bin/python -c "
+from pymongo import MongoClient
+uri = 'mongodb://admin:admin123@localhost:27017/?authSource=admin'
+client = MongoClient(uri)
+client.admin.command('ping')
+print('✅ MongoDB conectado correctamente')
+"
+```
+
+---
+
 ## 🎯 Próximos Pasos
 
 1. Ejecutar notebook celda por celda
 2. Revisar `notebooks/chatmodel.md` para entender cada celda
 3. Revisar `notebooks/README.md` para guía de aprendizaje
 4. Experimentar modificando prompts y parámetros
+5. Para notebooks con MongoDB: iniciar Docker Compose primero

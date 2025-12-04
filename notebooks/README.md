@@ -196,27 +196,88 @@ Reiniciar VS Code y reseleccionar kernel
 - [x] **chatmodel.ipynb** - Prompting y LangChain básico
 - [x] **semanticsearchnotebook.ipynb** - Búsqueda semántica con ChromaDB
 - [x] **raglangchain.ipynb** - RAG + Re-ranking + Visualización
-
-### Próximo Notebook Recomendado
-- [ ] **react-web-search.ipynb** - ReAct Agents + Web Search
-  - Agentes que razonan y actúan
-  - Tamaño: 78KB (complejidad media)
-  - Prerequisitos: chatmodel + raglangchain ✅
+- [x] **react-web-search.ipynb** - ReAct Agents + Web Search con Tavily
+- [x] **agentic-rag.ipynb** - Agentic RAG con flujo de decisiones inteligentes
 
 ---
 
-## 🎯 Orden de Aprendizaje Recomendado
+## 📊 Inventario Completo de Notebooks
 
-| # | Notebook | Estado | Complejidad |
-|---|----------|--------|-------------|
-| 1 | chatmodel.ipynb | ✅ COMPLETADO | Baja |
-| 2 | semanticsearchnotebook.ipynb | ✅ COMPLETADO | Baja-Media |
-| 3 | raglangchain.ipynb | ✅ COMPLETADO | Media |
-| 4 | react-web-search.ipynb | 📌 SIGUIENTE | Media |
-| 5 | agentic-rag.ipynb | ⏳ Pendiente | Alta |
-| 6 | sql-agent.ipynb | ⏳ Pendiente | Alta |
+### Notebooks de LLM/LangChain (Prioridad Alta)
+| # | Notebook | Tamaño | Estado | Complejidad |
+|---|----------|--------|--------|-------------|
+| 1 | chatmodel.ipynb | 13KB | ✅ COMPLETADO | Baja |
+| 2 | semanticsearchnotebook.ipynb | 32KB | ✅ COMPLETADO | Baja-Media |
+| 3 | raglangchain.ipynb | 33KB | ✅ COMPLETADO | Media |
+| 4 | react-web-search.ipynb | 49KB | ✅ COMPLETADO | Media |
+| 5 | agentic-rag.ipynb | 393KB | ✅ COMPLETADO | Alta |
+| 6 | raglangchaimongodb.ipynb | 263KB | 📌 RECOMENDADO | Media-Alta |
+| 7 | sql-agent.ipynb | 1.1MB | ⏳ PENDIENTE | Alta |
+| 8 | langchainmultiagentcollaboration.ipynb | 1.1MB | ⏳ PENDIENTE | Muy Alta |
 
-**Progreso:** 3/6 notebooks completados (50%)
+### Notebooks de ML/Data Science (Prioridad Baja)
+| # | Notebook | Tamaño | Estado | Tema |
+|---|----------|--------|--------|------|
+| 9 | pneumoniapreprocessing.ipynb | 47KB | ⏸️ OPCIONAL | Preprocesamiento imágenes |
+| 10 | salarypredictionregression.ipynb | 144KB | ⏸️ OPCIONAL | Regresión |
+| 11 | customerchurnclassification-fs.ipynb | 529KB | ⏸️ OPCIONAL | Clasificación |
+
+**Total:** 11 notebooks (5 completados, 6 pendientes)
+
+---
+
+## 🎯 Próximo Notebook Recomendado
+
+### Opción A: raglangchaimongodb.ipynb (RECOMENDADA)
+**Por qué:**
+- ✅ Siguiente paso lógico después de RAG básico y agentic-rag
+- ✅ Introduce persistencia con MongoDB (concepto importante)
+- ✅ Tamaño mediano (263KB) - no tan intimidante como sql-agent (1.1MB)
+- ✅ Complejidad Media-Alta - desafiante pero abordable
+- ✅ Combina RAG + Base de datos (útil para proyectos reales)
+
+**Temas que cubre:**
+- RAG con vector store en MongoDB
+- Persistencia de embeddings
+- Queries combinando búsqueda vectorial + filtros tradicionales
+- Integración LangChain + MongoDB Atlas
+
+### Opción B: sql-agent.ipynb
+**Consideraciones:**
+- ⚠️ 1.1MB de notebook (muy extenso)
+- ⚠️ Complejidad Alta
+- ✅ Prerequisitos cumplidos (react-web-search + agentic-rag)
+- ✅ Tema importante: Agentes + SQL + LangGraph
+
+**Recomendación:** Dejar para después de raglangchaimongodb
+
+---
+
+## 📝 Orden de Aprendizaje Sugerido (Actualizado)
+
+### Fase 1: Fundamentos ✅ COMPLETADA
+1. ✅ chatmodel.ipynb - Prompting básico, chains, memoria
+2. ✅ semanticsearchnotebook.ipynb - Embeddings, búsqueda semántica
+3. ✅ raglangchain.ipynb - RAG + re-ranking
+
+### Fase 2: Agentes ✅ COMPLETADA
+4. ✅ react-web-search.ipynb - ReAct agents + Tavily
+5. ✅ agentic-rag.ipynb - RAG con flujo de decisiones inteligentes
+
+### Fase 3: Persistencia & Integración 🎯 EN PROGRESO
+6. 📌 **raglangchaimongodb.ipynb** (SIGUIENTE RECOMENDADO)
+7. ⏳ sql-agent.ipynb - Agentes + SQL + LangGraph
+
+### Fase 4: Multi-Agentes Avanzado
+8. ⏳ langchainmultiagentcollaboration.ipynb - Colaboración entre agentes
+
+### Fase 5: ML/Data Science (Opcional)
+9. ⏸️ pneumoniapreprocessing.ipynb
+10. ⏸️ salarypredictionregression.ipynb
+11. ⏸️ customerchurnclassification-fs.ipynb
+
+**Progreso LLM/LangChain:** 5/8 completados (62.5%)
+**Progreso Total:** 5/11 notebooks (45.5%)
 
 ---
 

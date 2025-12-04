@@ -66,3 +66,28 @@ Entrega:
 Fechas de entrega
 2026
 
+dudas: documentos o vectorial?
+hay que usar ML y RAG para FREE y PAGO respectivamente
+es normal que los llamados de las note esten deprecados?
+docker python
+pase todo a groq y hugging face ((incluso rag explorer))
+serian varios servicios, cada uno en un docker compose? como se buildean multiples servicios 
+le recalcule el vector al dataset
+repo borrado
+
+
+venv requirements poetry o uv toml    pip freeze
+embeddings,
+
+cachier
+
+
+
+
+
+
+TIS1
+
+elicitacion le pasa ala especificación conocimiento (puedo detectar ambigüedades) (aca puedo tener análisis)
+especificación (especificar req del sistema).  (aca se hace el análisis para especificarlos) (SINTESIS de los req usuario a sistema NO RESUMEN SINO TRANSFORMACION)
+validación confrontar req del sistema con los req del usuario (con el)
